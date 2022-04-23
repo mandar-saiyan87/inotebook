@@ -5,7 +5,7 @@ function NoteItem(props) {
   const { note } = props;
   return (
     <>
-      <div className="col-md-4">
+      <div className="col-md-4" >
         <div className="card my-3">
           <div className="card-header">
             {note.tag}
