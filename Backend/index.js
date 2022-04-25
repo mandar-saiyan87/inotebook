@@ -2,12 +2,14 @@ import connectMongo from "./db.js";
 import express from "express";
 import authfile from "./routes/auth.js";
 import notefile from "./routes/note.js";
+import cors from "cors";
 
 
 connectMongo();
 const app = express();
 const port = 5000
 app.use(express.json());
+app.use(cors())
 
 // Available Routes
 app.use("/api/auth", authfile);
