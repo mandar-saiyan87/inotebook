@@ -12,9 +12,15 @@ function AddNote() {
     tag: ""
   });
 
+
   function handleSubmit(e) {
     e.preventDefault();
     addNote(note.title, note.description, note.tag)
+    setNote({
+      title: "",
+      description: "",
+      tag: ""
+    })
   }
 
   function handleChange(e) {
@@ -28,22 +34,21 @@ function AddNote() {
         <form>
           <div className="mb-3">
             <label htmlFor="title" className="form-label">Title</label>
-            <input type="text" className="form-control" id="title" name='title' aria-describedby="emailHelp" placeholder='Enter Title' onChange={handleChange} />
+            <input type="text" className="form-control" id="title" value={note.title} name='title' aria-describedby="emailHelp" placeholder='Enter Title' onChange={handleChange} />
           </div>
           <div className="mb-3">
             <label htmlFor="description" className="form-label">Description</label>
-            <textarea className="form-control" id="description" name='description' rows="3" placeholder='Enter Description' onChange={handleChange}></textarea>
+            <textarea className="form-control" id="description" value={note.description} name='description' rows="3" placeholder='Enter Description' onChange={handleChange}></textarea>
           </div>
           <div className="mb-3">
             <label htmlFor="tag" className="form-label">Tag</label>
-            <input type="text" className="form-control" id="tag" name='tag' placeholder="Enter Tag" />
+            <input type="text" className="form-control" id="tag" value={note.tag} name='tag' placeholder="Enter Tag " onChange={handleChange} />
           </div>
-          <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Submit</button>
+          <button disabled={note.title.length < 5 || note.description.length < 5} type="submit" className="btn btn-primary" onClick={handleSubmit}>Submit</button>
         </form>
       </div>
     </>
-
-  );
+  )
 }
 
 export default AddNote;
