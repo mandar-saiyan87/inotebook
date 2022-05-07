@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
+import { NoteContext } from '../context/notes/NoteContext';
 
 function Login() {
 
   const [cred, setCred] = useState({ email: "", password: "" });
   let navigate = useNavigate();
 
+  const context = useContext(NoteContext);
+  const { showAlert } = context;
 
   function onChange(e) {
     setCred({ ...cred, [e.target.name]: e.target.value })
@@ -16,8 +19,7 @@ function Login() {
     const response = await fetch(`http://localhost:5000/api/auth/login`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({ email: cred.email, password: cred.password })
     });
@@ -25,10 +27,11 @@ function Login() {
     console.log(json)
     if (json.success) {
       // Save authtoken and redirect
-      localStorage.setItem('token', json.authtoken)
+      localStorage.setItem('token', json.authToken)
       navigate("/");
+      showAlert('Logged in successfully', 'success')
     } else {
-      alert("Invalid Credentials")
+      showAlert('Invalid Credentials', 'danger')
     }
   }
 

@@ -4,7 +4,7 @@ import { NoteContext } from '../context/notes/NoteContext';
 function AddNote() {
 
   const context = useContext(NoteContext);
-  const { addNote } = context;
+  const { addNote, showAlert } = context;
 
   const [note, setNote] = useState({
     title: "",
@@ -21,6 +21,7 @@ function AddNote() {
       description: "",
       tag: ""
     })
+    showAlert("New note added successfully", "success")
   }
 
   function handleChange(e) {

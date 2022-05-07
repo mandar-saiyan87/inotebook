@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -13,13 +13,28 @@ import Alert from './components/Alert';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 
+
 function App() {
+
+
+  // const [alert, setAlert] = useState(null);
+
+  // function showAlert(message, type) {
+  //   setAlert({
+  //     msg: message,
+  //     type: type,
+  //   });
+  //   setTimeout(() => {
+  //     setAlert(null);
+  //   }, 2000);
+  // }
+
   return (
     <>
       <NoteState>
         <Router>
           <Navbar />
-          <Alert />
+          <Alert alert={alert} />
           <Routes>
             <Route exact path="/" element={<Home />}></Route>
             <Route exact path="/about" element={<About />}></Route>

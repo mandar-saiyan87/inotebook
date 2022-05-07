@@ -1,4 +1,5 @@
 import React, { createContext, useState } from "react";
+// import Alert from "../../components/Alert";
 
 const NoteContext = createContext();
 
@@ -15,7 +16,7 @@ function NoteState(props) {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjI1ODRmYzIxNDVjNGY5Njg1MDBkZTkxIn0sImlhdCI6MTY1MDgwNTMzNn0.BJgvUkXup1qqxD2wu_N1unXMzE0sTlcCO5hOa4HQspY"
+        'auth-token': localStorage.getItem('token')
       },
     });
     const json = await response.json()
@@ -30,7 +31,7 @@ function NoteState(props) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjI1ODRmYzIxNDVjNGY5Njg1MDBkZTkxIn0sImlhdCI6MTY1MDgwNTMzNn0.BJgvUkXup1qqxD2wu_N1unXMzE0sTlcCO5hOa4HQspY"
+        'auth-token': localStorage.getItem('token')
       },
       body: JSON.stringify({ title, description, tag })
     });
@@ -99,9 +100,21 @@ function NoteState(props) {
     setNotes(deleteNote)
   }
 
+  const [alert, setAlert] = useState(null);
+  function showAlert(message, type) {
+    setAlert({
+      msg: message,
+      type: type,
+    });
+    setTimeout(() => {
+      setAlert(null);
+    }, 2000);
+  }
+
+
 
   return (
-    <NoteContext.Provider value={{ notes, addNote, editNote, deleteNote, getNotes }}>
+    <NoteContext.Provider value={{ notes, addNote, editNote, deleteNote, getNotes, alert, showAlert }}>
       {props.children}
     </NoteContext.Provider>
   );

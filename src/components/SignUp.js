@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
+import { NoteContext } from '../context/notes/NoteContext';
 
 function SignUp() {
+
+  const context = useContext(NoteContext);
+  const { showAlert } = context;
 
   const [register, setRegister] = useState({
     name: "",
@@ -30,10 +34,11 @@ function SignUp() {
     console.log(json)
     if (json.success) {
       // Save authtoken and redirect
-      localStorage.setItem('token', json.authtoken)
+      localStorage.setItem('token', json.authToken)
       navigate("/");
+      showAlert('Account created successfully', 'success')
     } else {
-      alert("Invalid Credentials")
+      showAlert('Invalid Credentials', 'danger')
     }
   }
 
